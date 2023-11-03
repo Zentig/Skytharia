@@ -10,7 +10,7 @@ public class LocalizationText : MonoBehaviour
     [SerializeField] private string _key;
     private TextMeshProUGUI _currentText;
 
-    private void Awake()
+    private void Start()
     {
         _currentText = GetComponent<TextMeshProUGUI>();
         HeadCL.Instance.OnLanguageChanged += ChangeText;
