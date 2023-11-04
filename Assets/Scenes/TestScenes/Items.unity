@@ -327,13 +327,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1440994746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc3fac6be20dca499735061f68fedaa, type: 3}
+  m_Script: {fileID: 11500000, guid: feceeb1eb4d14cf479c0405d548d4e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickupableTag: Pickupable Item
-  _grabText: {fileID: 1832282496}
-  canGrab: 0
-  nearbyItem: {fileID: 0}
+  pickupableTag: Pickupable Item
+  grabText: {fileID: 1832282496}
 --- !u!4 &1440994753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1524890003857619086, guid: b36518997b6126e4abcfb1ac4c14c057, type: 3}
