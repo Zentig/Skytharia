@@ -312,6 +312,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4977143330892625161, guid: b36518997b6126e4abcfb1ac4c14c057, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1440994747}
+    - targetCorrespondingSourceObject: {fileID: 4977143330892625161, guid: b36518997b6126e4abcfb1ac4c14c057, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1440994759}
   m_SourcePrefab: {fileID: 100100000, guid: b36518997b6126e4abcfb1ac4c14c057, type: 3}
 --- !u!1 &1440994746 stripped
 GameObject:
@@ -330,15 +333,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc3fac6be20dca499735061f68fedaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickupableTag: Pickupable Item
-  _grabText: {fileID: 1832282496}
-  canGrab: 0
-  nearbyItem: {fileID: 0}
 --- !u!4 &1440994753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1524890003857619086, guid: b36518997b6126e4abcfb1ac4c14c057, type: 3}
   m_PrefabInstance: {fileID: 1399202827}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1440994759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440994746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feceeb1eb4d14cf479c0405d548d4e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupableTag: Pickupable Item
+  grabText: {fileID: 1832282496}
 --- !u!1 &1658834572
 GameObject:
   m_ObjectHideFlags: 0
