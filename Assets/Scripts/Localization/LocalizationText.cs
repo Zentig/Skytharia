@@ -32,7 +32,7 @@ public class LocalizationText : MonoBehaviour
                 break;
         }
         var text = File.ReadAllText(path, Encoding.UTF8);
-        var serializedData = JsonConvert.DeserializeObject<LocalizatedObject>(text);
+        var serializedData = JsonConvert.DeserializeObject<LocalizedDictionary>(text);
         _currentText.text = serializedData.Dictionary[_key];
     }
 }

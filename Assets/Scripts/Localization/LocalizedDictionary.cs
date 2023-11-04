@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-class LocalizatedObject
+class LocalizedDictionary
 {
     public Dictionary<string, string> Dictionary = new();
 }
