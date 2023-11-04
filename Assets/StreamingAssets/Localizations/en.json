@@ -1,13 +1,6 @@
 {
   "Dictionary": {
     "hi1": "Hi",
-    "bye1": "Bye",
-    "title": "Skytharia",
-    "st_game": "Start",
-    "settings": "Settings",
-    "exit": "Exit",
-    "clarText": "Do you really want to quit?",
-    "yes": "Yes",
-    "no": "No"
+    "bye1": "Bye"
   }
 }

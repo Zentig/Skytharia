@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + _speed * Time.deltaTime * _direction);
+        _rb.MovePosition(_rb.position + _direction * _speed * Time.deltaTime);
     }
 }
 
