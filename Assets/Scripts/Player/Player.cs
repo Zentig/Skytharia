@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         get => _hp; 
         set
         {
-            if (value < _maxHP)
+            if (value <= _maxHP && value > 0)
                _hp = value;
                 OnHPChanged?.Invoke();
         }
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         get => _energy;
         set
         {
-            if (value < _maxEnergy)
+            if (value <= _maxEnergy && value > 0)
                 _energy = value;
                 OnEnergyChanged?.Invoke();
         }
@@ -56,8 +56,19 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        OnHPChanged += () => { _hpImage.fillAmount = HP / _maxHP; };
-        OnEnergyChanged += () => _energyImage.fillAmount = Energy / _maxEnergy;
-        OnCoinsChanged += () => _coinsText.text = $"{Coins}";
+        HP = _maxHP;
+        Energy = _maxEnergy;
+        Coins = 0;
+
+        OnHPChanged += CheckHPUI;
+        OnEnergyChanged += CheckEnergyUI;
+        OnCoinsChanged += CheckCoinsUI;
+
+        OnHPChanged?.Invoke();
+        OnEnergyChanged?.Invoke();
+        OnCoinsChanged?.Invoke();
     }
+    void CheckHPUI() { _hpImage.fillAmount = (float)HP / _maxHP; }
+    void CheckEnergyUI() { _energyImage.fillAmount = (float)Energy / _maxEnergy; }
+    void CheckCoinsUI() { _coinsText.text = $"{Coins}"; }
 }

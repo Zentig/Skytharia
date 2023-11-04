@@ -695,7 +695,7 @@ MonoBehaviour:
   _hpImage: {fileID: 2142307119}
   _maxEnergy: 100
   _energyImage: {fileID: 303655978}
-  _coinsText: {fileID: 0}
+  _coinsText: {fileID: 1704798890}
 --- !u!1 &1243223393
 GameObject:
   m_ObjectHideFlags: 0
