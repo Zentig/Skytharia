@@ -21,8 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coinsText;
 
     private int _hp;
-    private int _energy;
+    private float _energy;
     private int _coins;
+    public PlayerState PlayerState = PlayerState.Idle;
 
     #region Properties
     public int HP 
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
                 OnHPChanged?.Invoke();
         }
     }
-    public int Energy
+    public float Energy
     {
         get => _energy;
         set
