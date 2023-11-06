@@ -593,23 +593,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
-        type: 3}
-      propertyPath: _hpImage
       value: 
-      objectReference: {fileID: 2142307119}
-    - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
-        type: 3}
-      propertyPath: _coinsText
-      value: 
-      objectReference: {fileID: 1704798890}
-    - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
-        type: 3}
-      propertyPath: _energyImage
-      value: 
-      objectReference: {fileID: 303655978}
-    - target: {fileID: 4977143330892625161, guid: b36518997b6126e4abcfb1ac4c14c057,
-        type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
@@ -645,7 +629,7 @@ RectTransform:
   m_GameObject: {fileID: 813649221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 718595172}
@@ -656,7 +640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -694, y: 407}
+  m_AnchoredPosition: {x: -401, y: 159}
   m_SizeDelta: {x: 464.47, y: 163.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &813649223
@@ -697,6 +681,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813649221}
   m_CullTransparentMesh: 1
+  m_Name: 
 --- !u!1 &1243223393
 GameObject:
   m_ObjectHideFlags: 0
