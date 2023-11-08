@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d0e62721e731a47916713e45e4ef50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1622224631}
+  target: {fileID: 778094073}
   lerpSpeed: 2.5
 --- !u!20 &519420031
 Camera:
@@ -440,6 +440,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &778094073 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4114363074954739774, guid: be157e62ec8f8f04f84fe76551756df4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2388803389010016439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1065354848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,12 +788,6 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
---- !u!4 &1622224631 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4560671546201890949, guid: be157e62ec8f8f04f84fe76551756df4,
-    type: 3}
-  m_PrefabInstance: {fileID: 2388803389010016439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2388803389010016439
 PrefabInstance:
   m_ObjectHideFlags: 0
