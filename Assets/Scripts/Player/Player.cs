@@ -21,21 +21,22 @@ public class Player : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coinsText;
 
     private int _hp;
-    private int _energy;
+    private float _energy;
     private int _coins;
+    public PlayerState PlayerState = PlayerState.Idle;
 
     #region Properties
-    public int HP 
+    public int Health 
     { 
         get => _hp; 
         set
         {
             if (value <= _maxHP && value > 0)
                _hp = value;
-                OnHPChanged?.Invoke();
+               OnHPChanged?.Invoke();
         }
     }
-    public int Energy
+    public float Energy
     {
         get => _energy;
         set
@@ -53,22 +54,23 @@ public class Player : MonoBehaviour
         } 
     }
     #endregion
-
-    private void Start()
+    private void Awake()
     {
-        HP = _maxHP;
-        Energy = _maxEnergy;
-        Coins = 0;
-
         OnHPChanged += CheckHPUI;
         OnEnergyChanged += CheckEnergyUI;
         OnCoinsChanged += CheckCoinsUI;
+    }
+    private void Start()
+    {
+        Health = _maxHP;
+        Energy = _maxEnergy;
+        Coins = 0;
 
         OnHPChanged?.Invoke();
         OnEnergyChanged?.Invoke();
         OnCoinsChanged?.Invoke();
     }
-    void CheckHPUI() { _hpImage.fillAmount = (float)HP / _maxHP; }
+    void CheckHPUI() { _hpImage.fillAmount = (float)Health / _maxHP; }
     void CheckEnergyUI() { _energyImage.fillAmount = (float)Energy / _maxEnergy; }
     void CheckCoinsUI() { _coinsText.text = $"{Coins}"; }
 }
