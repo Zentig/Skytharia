@@ -67,16 +67,12 @@ namespace Inventory
             if (inventoryItem.IsEmpty)
                 return;
 
-            IItemAction itemAction = inventoryItem.item as IItemAction;
-            if(itemAction != null)
+            if (inventoryItem.item is IItemAction itemAction)
             {
-                
                 inventoryUI.ShowItemAction(itemIndex);
                 inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
             }
-
-            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null)
+            if (inventoryItem.item is IDestroyableItem)
             {
                 inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
             }
@@ -96,8 +92,7 @@ namespace Inventory
             if (inventoryItem.IsEmpty)
                 return;
 
-            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null)
+            if (inventoryItem.item is IDestroyableItem)
             {
                 inventoryData.RemoveItem(itemIndex, 1);
             }
@@ -144,13 +139,11 @@ namespace Inventory
             StringBuilder sb = new StringBuilder();
             sb.Append(inventoryItem.item.Description);
             sb.AppendLine();
-            for (int i = 0; i < inventoryItem.itemState.Count; i++)
-            {
-                sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName} " +
-                    $": {inventoryItem.itemState[i].value} / " +
-                    $"{inventoryItem.item.DefaultParametersList[i].value}");
-                sb.AppendLine();
-            }
+            //for (int i = 0; i < inventoryItem.itemState.Count; i++)
+            //{
+            //    sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName}: {inventoryItem.itemState[i].value} / {inventoryItem.item.DefaultParametersList[i].value}");
+            //    sb.AppendLine();
+            //}
             return sb.ToString();
         }
 
@@ -172,7 +165,6 @@ namespace Inventory
                 {
                     inventoryUI.Hide();
                 }
-
             }
         }
     }

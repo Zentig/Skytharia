@@ -21,8 +21,8 @@ public class AgentWeapon : MonoBehaviour
             inventoryData.AddItem(weapon, 1, itemCurrentState);
         }
 
-        this.weapon = weaponItemSO;
-        this.itemCurrentState = new List<ItemParameter>(itemState);
+        weapon = weaponItemSO;
+        itemCurrentState = new List<ItemParameter>(itemState);
         ModifyParameters();
     }
 
