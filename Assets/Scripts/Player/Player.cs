@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
     public event Action OnEnergyChanged;
     public event Action OnCoinsChanged;
 
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _runSpeed;
     [Header("HP")]
     [SerializeField] private int _maxHP;
     [SerializeField] private Image _hpImage;
@@ -31,6 +29,7 @@ public class Player : MonoBehaviour
     private int _hp;
     private float _energy;
     private int _coins;
+
     public PlayerState PlayerState = PlayerState.Idle;
 
     #region Properties
@@ -61,24 +60,23 @@ public class Player : MonoBehaviour
             OnCoinsChanged?.Invoke();
         } 
     }
-    public float MoveSpeed { get; private set; }
-    public float RunSpeed { get; private set; }
     #endregion
     private void Awake()
     {
         OnHPChanged += CheckHPUI;
         OnEnergyChanged += CheckEnergyUI;
         OnCoinsChanged += CheckCoinsUI;
+        InitStats();
     }
-    private void Start()
+    private void InitStats()
     {
         var playerStats = LoadPlayerData();
         Health = playerStats.Health;
         Energy = playerStats.Energy;
         Coins = playerStats.Coins;
-        MoveSpeed = playerStats.MoveSpeed;
-        RunSpeed = playerStats.RunSpeed;
-
+    }
+    private void Start()
+    {
         OnHPChanged?.Invoke();
         OnEnergyChanged?.Invoke();
         OnCoinsChanged?.Invoke();
@@ -94,8 +92,6 @@ public class Player : MonoBehaviour
         settingsConfig.playerStats.Health = Health;
         settingsConfig.playerStats.Energy = Energy;
         settingsConfig.playerStats.Coins = Coins;
-        settingsConfig.playerStats.MoveSpeed = MoveSpeed;
-        settingsConfig.playerStats.RunSpeed = RunSpeed;
         File.WriteAllText(_settingsConfigPath, JsonConvert.SerializeObject(settingsConfig));
     }
     public PlayerStats LoadPlayerData()
@@ -104,8 +100,6 @@ public class Player : MonoBehaviour
         Health = settingsConfig.playerStats.Health;
         Energy = settingsConfig.playerStats.Energy;
         Coins = settingsConfig.playerStats.Coins;
-        MoveSpeed = settingsConfig.playerStats.MoveSpeed;
-        RunSpeed = settingsConfig.playerStats.RunSpeed;
-        return new PlayerStats { Health = Health, Energy = Energy, Coins = Coins, MoveSpeed = MoveSpeed, RunSpeed = RunSpeed};
+        return new PlayerStats { Health = Health, Energy = Energy, Coins = Coins};
     }
 }

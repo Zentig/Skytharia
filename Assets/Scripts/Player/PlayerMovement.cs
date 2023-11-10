@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _runSpeed;
+    private float _speed;
     private Animator _anim;
     private Vector2 _direction;
     private Rigidbody2D _rb;
@@ -15,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        _speed = _player.MoveSpeed;
+        _speed = _moveSpeed;
         _player = gameObject.GetComponent<Player>();
 
         StartCoroutine(RestoreEnergy());
@@ -44,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator Running()
     {
-        _speed = _player.RunSpeed;
+        _speed = _runSpeed;
         _anim.SetBool("IsRunning", true);
         _player.PlayerState = PlayerState.Run;
         while (_player.PlayerState == PlayerState.Run)
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator RestoreEnergy()
     {
-        _speed = _player.MoveSpeed;
+        _speed = _moveSpeed;
         _anim.SetBool("IsRunning", false);
         _player.PlayerState = PlayerState.Idle;
         while (_player.PlayerState == PlayerState.Idle)
