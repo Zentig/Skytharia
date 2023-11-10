@@ -3,4 +3,5 @@
 public struct SettingsConfig
 {
     public string Language;
+    public PlayerStats playerStats;
 }

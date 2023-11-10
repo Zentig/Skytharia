@@ -5,20 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _runSpeed;
     [SerializeField] private float _speed;
     private Animator _anim;
     private Vector2 _direction;
     private Rigidbody2D _rb;
-    private Player _playerStats;
+    private Player _player;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        _speed = _moveSpeed;
-        _playerStats = gameObject.GetComponent<Player>();
+        _speed = _player.MoveSpeed;
+        _player = gameObject.GetComponent<Player>();
+
+        StartCoroutine(RestoreEnergy());
     }
     private void Update()
     {
@@ -29,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
         _anim.SetFloat("Vertical", _direction.y);
         _anim.SetFloat("Speed", _direction.sqrMagnitude);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _anim.GetFloat("Speed") > 0.1f && _playerStats.Energy > 20 && _playerStats.PlayerState == PlayerState.Idle)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _anim.GetFloat("Speed") > 0.1f && _player.Energy > 20 && _player.PlayerState == PlayerState.Idle)
         {
             StartCoroutine(Running());
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && _playerStats.PlayerState == PlayerState.Run || _playerStats.Energy < 20)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && _player.PlayerState == PlayerState.Run || _player.Energy < 20)
         {
             StartCoroutine(RestoreEnergy());
         }    
@@ -44,24 +44,24 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator Running()
     {
-        _speed = _runSpeed;
+        _speed = _player.RunSpeed;
         _anim.SetBool("IsRunning", true);
-        _playerStats.PlayerState = PlayerState.Run;
-        while (_playerStats.PlayerState == PlayerState.Run)
+        _player.PlayerState = PlayerState.Run;
+        while (_player.PlayerState == PlayerState.Run)
         {
-            _playerStats.Energy -= 2;
+            _player.Energy -= 2;
             yield return new WaitForSeconds(0.5f);
         }
         StopCoroutine(Running());
     }
     private IEnumerator RestoreEnergy()
     {
-        _speed = _moveSpeed;
+        _speed = _player.MoveSpeed;
         _anim.SetBool("IsRunning", false);
-        _playerStats.PlayerState = PlayerState.Idle;
-        while (_playerStats.PlayerState == PlayerState.Idle)
+        _player.PlayerState = PlayerState.Idle;
+        while (_player.PlayerState == PlayerState.Idle)
         {
-            _playerStats.Energy++;
+            _player.Energy++;
             yield return new WaitForSeconds(0.5f);
         }
         StopCoroutine(RestoreEnergy());
