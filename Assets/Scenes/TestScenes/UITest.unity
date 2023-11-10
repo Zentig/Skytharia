@@ -598,9 +598,19 @@ PrefabInstance:
       objectReference: {fileID: 2142307119}
     - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
         type: 3}
+      propertyPath: _runSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
+        type: 3}
       propertyPath: _coinsText
       value: 
       objectReference: {fileID: 1704798890}
+    - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
+        type: 3}
+      propertyPath: _moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3051848369481797371, guid: b36518997b6126e4abcfb1ac4c14c057,
         type: 3}
       propertyPath: _energyImage
