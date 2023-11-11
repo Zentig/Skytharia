@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _runSpeed;
-    [SerializeField] private float _speed;
+    [SerializeField] public float _speed;
     private Animator _anim;
     private Vector2 _direction;
     private Rigidbody2D _rb;
