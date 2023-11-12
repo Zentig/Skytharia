@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System.IO;
-using Newtonsoft.Json;
-using System.Text;
+using Skytharia.SaveManagement;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class LocalizationText : MonoBehaviour
@@ -25,14 +23,13 @@ public class LocalizationText : MonoBehaviour
         switch (languageKey)
         {
             case LocalizationTypes.ua:
-                path = $"{Application.streamingAssetsPath}/Localizations/ua.json";
+                path = $"Localizations/ua.json";
                 break;
             case LocalizationTypes.en:
-                path = $"{Application.streamingAssetsPath}/Localizations/en.json";
+                path = $"Localizations/en.json";
                 break;
         }
-        var text = File.ReadAllText(path, Encoding.UTF8);
-        var serializedData = JsonConvert.DeserializeObject<LocalizatedObject>(text);
+        LocalizatedObject serializedData = (LocalizatedObject)SaveManager.Load<LocalizatedObject>(path, false);
         _currentText.text = serializedData.Dictionary[_key];
     }
 }

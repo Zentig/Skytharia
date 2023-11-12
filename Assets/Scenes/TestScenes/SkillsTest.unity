@@ -1205,7 +1205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 4
   _runSpeed: 6.5
-  _speed: 0
 --- !u!1 &1448519904
 GameObject:
   m_ObjectHideFlags: 0
