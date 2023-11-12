@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHasPersistentData
 {
     private string _settingsConfigPath = Application.streamingAssetsPath + "/SettingsConfig.json";
 
@@ -66,14 +66,6 @@ public class Player : MonoBehaviour
         OnHPChanged += CheckHPUI;
         OnEnergyChanged += CheckEnergyUI;
         OnCoinsChanged += CheckCoinsUI;
-        InitStats();
-    }
-    private void InitStats()
-    {
-        var playerStats = LoadPlayerData();
-        Health = playerStats.Health;
-        Energy = playerStats.Energy;
-        Coins = playerStats.Coins;
     }
     private void Start()
     {
@@ -81,25 +73,23 @@ public class Player : MonoBehaviour
         OnEnergyChanged?.Invoke();
         OnCoinsChanged?.Invoke();
     }
-    private void OnDestroy() => SavePlayerData();
 
     void CheckHPUI() { _hpImage.fillAmount = (float)Health / _maxHP; }
     void CheckEnergyUI() { _energyImage.fillAmount = (float)Energy / _maxEnergy; }
     void CheckCoinsUI() { _coinsText.text = $"{Coins}"; }
-    public void SavePlayerData()
+    public void OnSaveGame()
     {
-        var settingsConfig = JsonConvert.DeserializeObject<SettingsConfig>(File.ReadAllText(_settingsConfigPath, Encoding.UTF8));
+        var settingsConfig = SettingsConfig.GetInstance();
         settingsConfig.playerStats.Health = Health;
         settingsConfig.playerStats.Energy = Energy;
         settingsConfig.playerStats.Coins = Coins;
-        File.WriteAllText(_settingsConfigPath, JsonConvert.SerializeObject(settingsConfig));
+        SettingsConfig.SaveInstance(settingsConfig);
     }
-    public PlayerStats LoadPlayerData()
+    public void OnLoadGame()
     {
-        var settingsConfig = JsonConvert.DeserializeObject<SettingsConfig>(File.ReadAllText(_settingsConfigPath, Encoding.UTF8));
+        var settingsConfig = SettingsConfig.GetInstance();
         Health = settingsConfig.playerStats.Health;
         Energy = settingsConfig.playerStats.Energy;
         Coins = settingsConfig.playerStats.Coins;
-        return new PlayerStats { Health = Health, Energy = Energy, Coins = Coins};
     }
 }
