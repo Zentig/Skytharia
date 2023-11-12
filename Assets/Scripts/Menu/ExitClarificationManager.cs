@@ -53,5 +53,8 @@ public class ExitClarificationManager : MonoBehaviour
     {
         if (s_instanceExists) { return; }
         
+        GameObject clarificationManagerPrefab = Resources.Load<GameObject>("Exit Clarification Manager");
+        Instantiate(clarificationManagerPrefab);
+        s_instanceExists = true;
     }
 }
