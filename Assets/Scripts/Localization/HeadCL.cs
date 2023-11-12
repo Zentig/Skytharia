@@ -4,13 +4,12 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
+using Skytharia.SaveManagement;
 
-public class HeadCL : MonoBehaviour
+public class HeadCL : MonoBehaviour, IHasPersistentData
 {
     public static HeadCL Instance;
     public event Action<LocalizationTypes> OnLanguageChanged;
-
-    private string _settingsConfigPath = Application.streamingAssetsPath + "/SettingsConfig.json";
     private LocalizationTypes _language;
 
     private void Awake()
@@ -25,18 +24,22 @@ public class HeadCL : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
+    public void OnLoadGame()
     {
-        var settingsConfig = JsonConvert.DeserializeObject<SettingsConfig>(File.ReadAllText(_settingsConfigPath, Encoding.UTF8));
+        var settingsConfig = SettingsConfig.GetInstance();
         SetLanguage(Enum.Parse<LocalizationTypes>(settingsConfig.Language));
+    }
+    public void OnSaveGame()
+    {
+        return;
     }
     public void SetLanguage(LocalizationTypes language)
     {
         _language = language;
 
-        var settingsConfig = JsonConvert.DeserializeObject<SettingsConfig>(File.ReadAllText(_settingsConfigPath, Encoding.UTF8));
+        var settingsConfig = SettingsConfig.GetInstance();
         settingsConfig.Language = language.ToString();
-        File.WriteAllText(_settingsConfigPath, JsonConvert.SerializeObject(settingsConfig));
+        SettingsConfig.SaveInstance(settingsConfig);
 
         Debug.Log(settingsConfig.Language);
         OnLanguageChanged?.Invoke(_language);
