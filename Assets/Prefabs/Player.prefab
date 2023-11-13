@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3051848369481797371}
   - component: {fileID: 4207224053280299828}
   - component: {fileID: 5100912583511078473}
-  - component: {fileID: 4809906011022215171}
   - component: {fileID: 6323112902681779608}
   - component: {fileID: 4920786266787103571}
   m_Layer: 0
@@ -188,11 +187,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a462336034caf4fb4a5b21f62f84cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onInteractedText: {fileID: 0}
   _maxHP: 100
   _hpImage: {fileID: 0}
   _maxEnergy: 100
   _energyImage: {fileID: 0}
   _coinsText: {fileID: 0}
+  _inventoryData: {fileID: 11400000, guid: 09bd5350e79b1544e94da0092e77d7ca, type: 2}
   PlayerState: 0
 --- !u!82 &4207224053280299828
 AudioSource:
@@ -302,20 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a977edd61577ba7448116fa693d3da10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
---- !u!114 &4809906011022215171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4977143330892625161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535128f3e78549d47bdd5ed3ebfe25a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryData: {fileID: 11400000, guid: 09bd5350e79b1544e94da0092e77d7ca, type: 2}
+  _moveSpeed: 4
+  _runSpeed: 8
 --- !u!114 &6323112902681779608
 MonoBehaviour:
   m_ObjectHideFlags: 0
