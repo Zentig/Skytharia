@@ -1,34 +1,36 @@
 using Inventory.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+public class Item : MonoBehaviour, IInteractable
 {
-    [field: SerializeField]
-    public ItemSO InventoryItem { get; private set; }
+    [field: SerializeField] public ItemSO InventoryItem { get; private set; }
 
-    [field: SerializeField]
-    public int Quantity { get; set; } = 1;
+    [field: SerializeField] public int Quantity { get; set; } = 1;
 
-    [SerializeField]
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
-    [SerializeField]
-    private float duration = 0.3f;
+    [SerializeField] private float duration = 0.3f;
+
+    public string InteractText { get; set; } = "get";
 
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+        
     }
-
-    public void DestroyItem()
+    public void Interact(){
+        DestroyItem();
+    }
+    private void DestroyItem()
     {
-        GetComponent<Collider2D>().enabled = false;
-        StartCoroutine(AnimateItemPickup());
-
+        //GetComponent<Collider2D>().enabled = false;
+        //StartCoroutine(AnimateItemPickup());
+        Destroy(gameObject);
     }
-
     private IEnumerator AnimateItemPickup()
     {
         audioSource.Play();

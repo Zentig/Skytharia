@@ -8,15 +8,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Inventory.Model;
 
 public class Player : MonoBehaviour, IHasPersistentData
 {
-    private string _settingsConfigPath = Application.streamingAssetsPath + "/SettingsConfig.json";
-
     public event Action OnHPChanged;
     public event Action OnEnergyChanged;
     public event Action OnCoinsChanged;
+    public Queue<IInteractable> CurrentlyInteractedObjects;
 
+    [SerializeField] private TextMeshProUGUI _onInteractedText;
     [Header("HP")]
     [SerializeField] private int _maxHP;
     [SerializeField] private Image _hpImage;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour, IHasPersistentData
     [SerializeField] private Image _energyImage;
     [Header("Coins")]
     [SerializeField] private TextMeshProUGUI _coinsText;
+    [Header("Inventory")]
+    [SerializeField] private InventorySO _inventoryData;
 
     private int _hp;
     private float _energy;
@@ -69,11 +72,64 @@ public class Player : MonoBehaviour, IHasPersistentData
     }
     private void Start()
     {
+        _onInteractedText.text = string.Empty;
         OnHPChanged?.Invoke();
         OnEnergyChanged?.Invoke();
         OnCoinsChanged?.Invoke();
+        CurrentlyInteractedObjects = new();
     }
-
+    private void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.E) && CurrentlyInteractedObjects.Count != 0)
+        {
+            var peekedObj = CurrentlyInteractedObjects.Dequeue();
+            switch (peekedObj)
+            {
+                case Item item:   
+                    _inventoryData.AddItem(item.InventoryItem, item.Quantity);
+                    item.Interact();
+                    break;
+                default:
+                    Debug.LogError("IInteractable doesn't equal to any type of IInteractable's heirs");
+                    break;
+            }
+            if (CurrentlyInteractedObjects.Count != 0) 
+            {
+                var nextInQueue = CurrentlyInteractedObjects.Peek();  
+                _onInteractedText.text = $"Press E to {nextInQueue.InteractText}!";
+            } 
+            else
+            {
+                _onInteractedText.text = "";
+            } 
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        var interactable = other.GetComponent<IInteractable>();
+        if (interactable == null)
+            return;
+        if (!CurrentlyInteractedObjects.Contains(interactable))
+        {
+            CurrentlyInteractedObjects.Enqueue(interactable);
+            _onInteractedText.text = $"Press E to {interactable.InteractText}!";
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) {
+        var interactable = other.GetComponent<IInteractable>();       
+        if (interactable == null || !other.gameObject.activeInHierarchy)
+            return;
+        CurrentlyInteractedObjects.Dequeue();
+        if (CurrentlyInteractedObjects.Count != 0) 
+        {
+            var nextInQueue = CurrentlyInteractedObjects.Peek();  
+            _onInteractedText.text = $"Press E to {nextInQueue.InteractText}!"; 
+        } 
+        else
+        {
+            _onInteractedText.text = "";
+        } 
+    }
     void CheckHPUI() { _hpImage.fillAmount = (float)Health / _maxHP; }
     void CheckEnergyUI() { _energyImage.fillAmount = (float)Energy / _maxEnergy; }
     void CheckCoinsUI() { _coinsText.text = $"{Coins}"; }
