@@ -27,9 +27,9 @@ public class Item : MonoBehaviour, IInteractable
     }
     private void DestroyItem()
     {
-        //GetComponent<Collider2D>().enabled = false;
-        //StartCoroutine(AnimateItemPickup());
+        GetComponent<Collider2D>().enabled = false;
         Destroy(gameObject);
+        //StartCoroutine(AnimateItemPickup());
     }
     private IEnumerator AnimateItemPickup()
     {
