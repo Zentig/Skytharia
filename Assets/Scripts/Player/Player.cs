@@ -117,7 +117,7 @@ public class Player : MonoBehaviour, IHasPersistentData
     }
     private void OnTriggerExit2D(Collider2D other) {
         var interactable = other.GetComponent<IInteractable>();       
-        if (interactable == null || !other.gameObject.activeInHierarchy)
+        if (interactable == null || !other.isActiveAndEnabled)
             return;
         CurrentlyInteractedObjects.Dequeue();
         if (CurrentlyInteractedObjects.Count != 0) 
