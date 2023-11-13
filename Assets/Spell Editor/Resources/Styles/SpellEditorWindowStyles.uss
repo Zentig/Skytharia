@@ -1,0 +1,9 @@
+VisualElement {
+}
+
+#title {
+    justify-content: flex-start;
+    align-items: center;
+    -unity-font-style: bold;
+    align-self: center;
+}
