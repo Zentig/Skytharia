@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class QuestTeleportSystem : MonoBehaviour
 {
-    public Transform[] questPlaces;
-    public bool q = true;
+    [SerializeField] private Transform[] questPlaces;
+    [SerializeField] private bool PressedQ = true;
     public GameObject clone;
-    public GameObject canvasQuests;
-    public GameObject[] questObjectsToTeleport;
+    [SerializeField] private GameObject canvasQuests;
+    [SerializeField] private GameObject[] questObjectsToTeleport;
 
     void Start()
     {
@@ -17,14 +17,14 @@ public class QuestTeleportSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!q)
+            if (!PressedQ)
             {
-                q = true;
+                PressedQ = true;
                 CloneAndTeleportToLastPlace();
             }
             else
             {
-                q = false;
+                PressedQ = false;
                 Destroy(clone);
                 clone = null;
             }

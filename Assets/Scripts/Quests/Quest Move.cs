@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class QuestMove : MonoBehaviour
 {
-    public PlayerMovement playermovement;
-    public bool ran;
-    [SerializeField] private GameObject ranquest;
-    public QuestTeleportSystem questplacement;
-    public AudioSource audioSource;
+    [SerializeField] private PlayerMovement _playermovement;
+    private bool PlayerhasRun;
+    [SerializeField] private GameObject _runquest;
+    [SerializeField] private QuestTeleportSystem _questplacement;
+    [SerializeField] private AudioSource _audioSource;
 
     private void Update()
     {
-        if (playermovement._speed > 6)
+        if (_playermovement._speed > 6)
         {
-          ran = true;
+            PlayerhasRun = true;
         }
-        if(ran)
+        if(PlayerhasRun)
         {
-            if (ranquest.activeSelf)
+            if (_runquest.activeSelf)
             {
-                Destroy(questplacement.clone);
-                ranquest.SetActive(false);
-                questplacement.CloneAndTeleportToLastPlace();
-                audioSource.Play();
+                Destroy(_questplacement.clone);
+                _runquest.SetActive(false);
+                _questplacement.CloneAndTeleportToLastPlace();
+                _audioSource.Play();
             }
         }
     }

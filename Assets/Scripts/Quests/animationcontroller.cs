@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    public Animator objectAnimator; // Reference to the Animator component on the object
-    public GameObject objectToActivate; // Reference to the object to activate/deactivate
+    [SerializeField] private Animator _objectAnimator; // Reference to the Animator component on the object
+    [SerializeField] private GameObject _objectToActivate; // Reference to the object to activate/deactivate
     private bool isObjectActive = false;
     [SerializeField] private GameObject _main;
     [SerializeField] private GameObject _Select;
@@ -13,7 +13,7 @@ public class AnimationController : MonoBehaviour
     private void Start()
     {
         Debug.Log("0 0");
-        objectToActivate.transform.localScale = new Vector2(0,0);
+        _objectToActivate.transform.localScale = new Vector2(0,0);
     }
 
     private void Update()
@@ -30,14 +30,14 @@ public class AnimationController : MonoBehaviour
         if (isObjectActive)
         {
             // Play the second animation to close the object
-            objectAnimator.SetTrigger("close");
+            _objectAnimator.SetTrigger("close");
             _Select.SetActive(true);
             _main.SetActive(false);
         }
         else
         {
             // Play the first animation to open the object
-            objectAnimator.SetTrigger("open");
+            _objectAnimator.SetTrigger("open");
 
         }
 
