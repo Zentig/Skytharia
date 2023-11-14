@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private string pickupableTag = "Pickupable Item";
-    [SerializeField] private GameObject grabText; // Reference to the "Press E to grab" text object
+    [SerializeField] private string _pickupableTag = "Pickupable Item";
+    [SerializeField] private GameObject _grabText; // Reference to the "Press E to grab" text object
 
     private bool canGrab;
     private GameObject nearbyItem;
@@ -13,9 +13,9 @@ public class Item : MonoBehaviour
     void Start()
     {
         // Hide the "Press E to grab" text at the start
-        if (grabText != null)
+        if (_grabText != null)
         {
-            grabText.SetActive(false);
+            _grabText.SetActive(false);
         }
     }
 
@@ -34,9 +34,9 @@ public class Item : MonoBehaviour
                 nearbyItem = null;
 
                 // Hide the grab text
-                if (grabText != null)
+                if (_grabText != null)
                 {
-                    grabText.SetActive(false);
+                    _grabText.SetActive(false);
                 }
             }
         }
@@ -44,26 +44,26 @@ public class Item : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(pickupableTag))
+        if (other.CompareTag(_pickupableTag))
         {
             canGrab = true;
             nearbyItem = other.gameObject;
-            if (grabText != null)
+            if (_grabText != null)
             {
-                grabText.SetActive(true);
+                _grabText.SetActive(true);
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag(pickupableTag))
+        if (other.CompareTag(_pickupableTag))
         {
             canGrab = false;
             nearbyItem = null;
-            if (grabText != null)
+            if (_grabText != null)
             {
-                grabText.SetActive(false);
+                _grabText.SetActive(false);
             }
         }
     }
