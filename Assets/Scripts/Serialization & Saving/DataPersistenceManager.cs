@@ -8,7 +8,7 @@ public class DataPersistenceManager : MonoBehaviour
     private void Awake()
     {
         s_instanceExists = true;
-        IHasPersistentData[] objectsWithPersistentData = FindObjectsOfType<MonoBehaviour>().OfType<IHasPersistentData>().ToArray();
+        IHasPersistentData[] objectsWithPersistentData = GetPersistentDataMonoBehaviours();
         foreach (var toCall in objectsWithPersistentData) 
         {
             toCall.OnLoadGame();
@@ -17,7 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void OnQuit()
     {
-        IHasPersistentData[] objectsWithPersistentData = FindObjectsOfType<MonoBehaviour>().OfType<IHasPersistentData>().ToArray();
+        IHasPersistentData[] objectsWithPersistentData = GetPersistentDataMonoBehaviours();
         foreach (var toCall in objectsWithPersistentData) 
         {
             toCall.OnSaveGame();
@@ -26,6 +26,10 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnDestroy()
     {
         s_instanceExists = false;
+    }
+    private IHasPersistentData[] GetPersistentDataMonoBehaviours()
+    {
+        return FindObjectsOfType<MonoBehaviour>().OfType<IHasPersistentData>().ToArray();
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateInstanceOnStart()
