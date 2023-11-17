@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5100912583511078473}
   - component: {fileID: 6323112902681779608}
   - component: {fileID: 4920786266787103571}
+  - component: {fileID: 5903175136695372336}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -34,8 +35,8 @@ Transform:
   m_GameObject: {fileID: 4977143330892625161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.42, y: -1.49, z: 0.024445716}
-  m_LocalScale: {x: 6.267728, y: 7.4537206, z: 1}
+  m_LocalPosition: {x: -6.2576, y: -1.8358, z: 0.024445716}
+  m_LocalScale: {x: 9.221081, y: 11.5767145, z: 1.4712}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -1814055175, guid: 8baeafd22dadf4d478a0cb2ca74db5de, type: 3}
+  m_Sprite: {fileID: 1897548716, guid: 17592b2188262e24b8841e121bcf231a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,8 +125,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.124280356, y: 0.26}
+  m_Offset: {x: 0.0006324757, y: -0.0015113987}
+  m_Size: {x: 0.10530517, y: 0.2045816}
   m_Direction: 0
 --- !u!95 &448163033255398395
 Animator:
@@ -187,13 +188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a462336034caf4fb4a5b21f62f84cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onInteractedText: {fileID: 0}
   _maxHP: 100
   _hpImage: {fileID: 0}
   _maxEnergy: 100
   _energyImage: {fileID: 0}
   _coinsText: {fileID: 0}
-  _inventoryData: {fileID: 11400000, guid: 09bd5350e79b1544e94da0092e77d7ca, type: 2}
   PlayerState: 0
 --- !u!82 &4207224053280299828
 AudioSource:
@@ -350,3 +349,18 @@ MonoBehaviour:
   inventoryData: {fileID: 11400000, guid: 09bd5350e79b1544e94da0092e77d7ca, type: 2}
   parametersToModify: []
   itemCurrentState: []
+--- !u!114 &5903175136695372336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4977143330892625161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbff1936bcc21840b41ef390ad37e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryData: {fileID: 11400000, guid: 09bd5350e79b1544e94da0092e77d7ca, type: 2}
+  _onInteractedText: {fileID: 0}
+  _keyInteract: 102

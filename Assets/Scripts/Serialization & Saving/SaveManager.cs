@@ -122,7 +122,7 @@ namespace Skytharia.SaveManagement
             TestSaveData loaded = (TestSaveData)Load<TestSaveData>("Debug/TestSaveManagerDataEncrypt.data", true);
             Debug.Log($"Loaded encrypted data: A: {loaded.a}, B: {loaded.b}, C: {loaded.c}, D: {loaded.d}");
         }
-        
+
         #endif
     }
 }
