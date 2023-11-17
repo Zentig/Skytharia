@@ -23,10 +23,10 @@ public class LocalizationText : MonoBehaviour
         switch (languageKey)
         {
             case LocalizationTypes.ua:
-                path = $"Localizations/ua.json";
+                path = $"Localizations/ua.data";
                 break;
             case LocalizationTypes.en:
-                path = $"Localizations/en.json";
+                path = $"Localizations/en.data";
                 break;
         }
         LocalizatedObject serializedData = (LocalizatedObject)SaveManager.Load<LocalizatedObject>(path, false);
