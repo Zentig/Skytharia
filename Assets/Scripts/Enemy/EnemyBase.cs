@@ -10,12 +10,12 @@ namespace Skytharia.Enemy
     {
         [Header("Enemy Control Settings")]
         [SerializeField] [Tooltip("Max Life for Enemy")] 
-        protected float MaxLife;
+        protected float maxLife;
         [Header("Enemy Internal Links")]
         [SerializeField] [Tooltip("Link to RigidBody controlling object")] 
-        protected Rigidbody2D Body;
+        protected Rigidbody2D body;
         [SerializeField] [Tooltip("Link to Animation Controller object with an EnemyAnimationMarker attached")] 
-        protected EnemyAnimationMarker Ani;
+        protected EnemyAnimationMarker ani;
 
         /**
          * <summary>Override to allow derived contexts to be used by the base functions.</summary>
@@ -27,7 +27,7 @@ namespace Skytharia.Enemy
          */
         protected virtual void Start()
         {
-            Ani.SetEnemyBase(this);
+            ani.SetEnemyBase(this);
         }
 
         /**
@@ -47,11 +47,20 @@ namespace Skytharia.Enemy
         }
 
         /**
+         * <summary>Method to apply damage to an enemy. Will likely be moved to a global
+         * interface.</summary>
+         */
+        public virtual void ApplyDamage(float amount)
+        {
+            Context.CurrentState.Hit(amount);
+        }
+
+        /**
          * <summary>Event function to call at the end of a single play animation that needs to
          * interact with the base script. Must interact with an EnemyAnimationMarker
          * to collect the triggers.</summary>
          */
-        public virtual void OnAnimationDone()
+        public virtual void FinishAnimation()
         {
             Context.CurrentState.AnimationEnded();
         }
@@ -62,10 +71,11 @@ namespace Skytharia.Enemy
          */
         protected virtual void SetupContext(EnemyContext ctx)
         {
-            ctx.MaxLife = MaxLife;
-            ctx.Body = Body;
-            ctx.Ani = Ani.Animator;
-            ctx.CurrentLife = MaxLife;
+            ctx.MaxLife = maxLife;
+            ctx.Body = body;
+            ctx.Ani = ani.Animator;
+            ctx.MaxLife = maxLife;
+            ctx.CurrentLife = maxLife;
         }
         
         /**
@@ -108,7 +118,7 @@ namespace Skytharia.Enemy
          * <summary>Base class for all enemy states. Inherit and implement relevant functions.
          * Always call base.xxx() in overridden functions.</summary>
          */
-        protected abstract class EnemyState
+        protected class EnemyState
         {
             /** <summary>Context linked to this state</summary> */
             protected EnemyContext Context;
@@ -147,6 +157,11 @@ namespace Skytharia.Enemy
              * should be non repeating and call EnemyBase.OnAnimationDone() to activate.</summary>
              */
             public virtual void AnimationEnded() {}
+            
+            /**
+             * <summary>Function called whenever damage is applied.</summary>
+             */
+            public virtual void Hit(float amount) {}
         }
     }
 }

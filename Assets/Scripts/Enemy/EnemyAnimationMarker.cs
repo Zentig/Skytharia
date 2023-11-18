@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Skytharia.Enemy
@@ -13,6 +14,11 @@ namespace Skytharia.Enemy
         private Animator _ani;
         private EnemyBase _enemyRoot;
 
+        private void Awake()
+        {
+            _ani = GetComponent<Animator>();
+        }
+
         /**
          * <summary>Used to attach the base Enemy the animator appears in.</summary>
          */
@@ -27,7 +33,7 @@ namespace Skytharia.Enemy
          */
         public void OnAnimationDone()
         {
-            _enemyRoot.OnAnimationDone();
+            _enemyRoot.FinishAnimation();
         }
 
         /**

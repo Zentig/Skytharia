@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3346686068025394317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6621581888744350033}
+  m_Layer: 0
+  m_Name: DirectionControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6621581888744350033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3346686068025394317}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9079806058009591533}
+  m_Father: {fileID: 1349019962692054197}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4177155395551999461
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +64,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1349019962692054197}
+  m_Father: {fileID: 6621581888744350033}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1097449375985584879
 SpriteRenderer:
@@ -150,7 +182,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9079806058009591533}
+  - {fileID: 6621581888744350033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6116917690637499644
@@ -192,6 +224,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d66b76d1f2401abd0ab651b889d885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxLife: 40
-  Body: {fileID: 6116917690637499644}
-  Ani: {fileID: 2282479703973321260}
+  maxLife: 25
+  body: {fileID: 6116917690637499644}
+  ani: {fileID: 2282479703973321260}
+  mode: 1
+  leftRightDirectionControl: {fileID: 3346686068025394317}
+  idleSpeed: 1
+  attackSpeed: 3
+  visionRadius: 4
+  explodeRadius: 0.5
+  wanderRadius: 1.5
+  idleTime: 1.5
