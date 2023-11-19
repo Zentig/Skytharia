@@ -45,12 +45,20 @@ public class PlayerInteract : MonoBehaviour
     }
     private void InteractAction()
     {
-        var peekedObj = _currentlyInteractedObjects.Dequeue();
+        var peekedObj = _currentlyInteractedObjects.Peek();
         switch (peekedObj)
         {
             case Item item:   
                 _inventoryData.AddItem(item.InventoryItem, item.Quantity);
                 item.Interact();
+                _currentlyInteractedObjects.Dequeue();
+                break;
+            case NPCTalking npc:
+                npc.Interact();
+                if (!npc.CanContinueDialogue) 
+                { 
+                    _currentlyInteractedObjects.Dequeue();   
+                }
                 break;
             default:
                 Debug.LogError("IInteractable doesn't equal to any type of IInteractable's heirs");
