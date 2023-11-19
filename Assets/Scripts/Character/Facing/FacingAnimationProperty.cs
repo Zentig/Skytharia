@@ -29,7 +29,7 @@ namespace Skytharia.Character.Facing
         [SerializeField] [Tooltip("Animator to adjust. Will usually be the same as attached to Character Behavior")]
         private Animator animator;
         [SerializeField] [Tooltip("Name of Animation Property to set")] 
-        private string animationProperty;
+        private string animationProperty = "Facing";
         [SerializeField] [Tooltip("Number of directions allowed for this animation")] 
         private DirectionCount directionCount;
 
