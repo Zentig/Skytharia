@@ -15,7 +15,7 @@ public class PlayerInteract : MonoBehaviour
     private void Start() {
         _onInteractedText.text = string.Empty;
         _currentlyInteractedObjects = new();
-        _keyInteract = _keyInteract == KeyCode.None ? _keyInteract : KeyCode.E;
+        _keyInteract = _keyInteract == KeyCode.None ? KeyCode.E : _keyInteract;
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -77,7 +77,7 @@ public class PlayerInteract : MonoBehaviour
         if (_currentlyInteractedObjects.Count != 0) 
         {
             var nextInQueue = _currentlyInteractedObjects.Peek();  
-            _onInteractedText.text = $"Press E to {nextInQueue.InteractText}!"; 
+            _onInteractedText.text = $"Press {_keyInteract} to {nextInQueue.InteractText}!"; 
         } 
         else
         {
