@@ -25,15 +25,17 @@ public class PlayerInteract : MonoBehaviour
         if (!_currentlyInteractedObjects.Contains(interactable))
         {
             _currentlyInteractedObjects.Enqueue(interactable);
+            if (interactable is DialogueTrigger dt) { dt.SwitchVisualCue(true); }
             _onInteractedText.text = $"Press {_keyInteract} to {interactable.InteractText}!";
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
     {
         var interactable = other.GetComponent<IInteractable>();       
-        if (interactable == null || !other.isActiveAndEnabled)
+        if (interactable == null || !other.isActiveAndEnabled || !_currentlyInteractedObjects.Contains(interactable))
             return;
         _currentlyInteractedObjects.Dequeue();
+        if (interactable is DialogueTrigger dt) { dt.SwitchVisualCue(false); }
         SetNextInteractText();       
     }
     void Update()
@@ -59,6 +61,10 @@ public class PlayerInteract : MonoBehaviour
                 { 
                     _currentlyInteractedObjects.Dequeue();   
                 }
+                break;
+            case DialogueTrigger dialogueTrigger:
+                dialogueTrigger.Interact();
+                _currentlyInteractedObjects.Dequeue();
                 break;
             default:
                 Debug.LogError("IInteractable doesn't equal to any type of IInteractable's heirs");
