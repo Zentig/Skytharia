@@ -3,44 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// This script acts as a single point for all other scripts to get
-// the current input from. It uses Unity's new Input System and
-// functions should be mapped to their corresponding controls
-// using a PlayerInput component with Unity Events.
-
 [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
-    private Vector2 moveDirection = Vector2.zero;
-    private bool jumpPressed = false;
-    private bool interactPressed = false;
-    private bool submitPressed = false;
+    private Vector2 _moveDirection = Vector2.zero;
+    private bool _jumpPressed = false;
+    private bool _interactPressed = false;
+    private bool _submitPressed = false;
 
-    private static InputManager instance;
+    private static InputManager _instance;
 
     private void Awake()
     {
-        if (instance != null)
+        if (_instance != null)
         {
             Debug.LogError("Found more than one Input Manager in the scene.");
         }
-        instance = this;
+        _instance = this;
     }
 
     public static InputManager GetInstance() 
     {
-        return instance;
+        return _instance;
     }
 
     public void MovePressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            moveDirection = context.ReadValue<Vector2>();
+            _moveDirection = context.ReadValue<Vector2>();
         }
         else if (context.canceled)
         {
-            moveDirection = context.ReadValue<Vector2>();
+            _moveDirection = context.ReadValue<Vector2>();
         } 
     }
 
@@ -48,11 +43,11 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            jumpPressed = true;
+            _jumpPressed = true;
         }
         else if (context.canceled)
         {
-            jumpPressed = false;
+            _jumpPressed = false;
         }
     }
 
@@ -60,11 +55,11 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            interactPressed = true;
+            _interactPressed = true;
         }
         else if (context.canceled)
         {
-            interactPressed = false;
+            _interactPressed = false;
         } 
     }
 
@@ -72,17 +67,17 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            submitPressed = true;
+            _submitPressed = true;
         }
         else if (context.canceled)
         {
-            submitPressed = false;
+            _submitPressed = false;
         } 
     }
 
     public Vector2 GetMoveDirection() 
     {
-        return moveDirection;
+        return _moveDirection;
     }
 
     // for any of the below 'Get' methods, if we're getting it then we're also using it,
@@ -91,28 +86,27 @@ public class InputManager : MonoBehaviour
 
     public bool GetJumpPressed() 
     {
-        bool result = jumpPressed;
-        jumpPressed = false;
+        bool result = _jumpPressed;
+        _jumpPressed = false;
         return result;
     }
 
     public bool GetInteractPressed() 
     {
-        bool result = interactPressed;
-        interactPressed = false;
+        bool result = _interactPressed;
+        _interactPressed = false;
         return result;
     }
 
     public bool GetSubmitPressed() 
     {
-        bool result = submitPressed;
-        submitPressed = false;
+        bool result = _submitPressed;
+        _submitPressed = false;
         return result;
     }
 
     public void RegisterSubmitPressed() 
     {
-        submitPressed = false;
+        _submitPressed = false;
     }
-
 }

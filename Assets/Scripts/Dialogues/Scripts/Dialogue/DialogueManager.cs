@@ -163,17 +163,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue) 
         {
-            // set text for the current dialogue line
-            if (displayLineCoroutine != null) 
-            {
-                StopCoroutine(displayLineCoroutine);
-            }
             string nextLine = currentStory.Continue();
-            // handle tags
             HandleTags(currentStory.currentTags);
             displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
         }
-        else 
+        else
         {
             StartCoroutine(ExitDialogueMode());
         }
@@ -368,8 +362,7 @@ public class DialogueManager : MonoBehaviour
         if (canContinueToNextLine) 
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
-            // NOTE: The below two lines were added to fix a bug after the Youtube video was made
-            InputManager.GetInstance().RegisterSubmitPressed(); // this is specific to my InputManager script
+            InputManager.GetInstance().RegisterSubmitPressed();
             ContinueStory();
         }
     }

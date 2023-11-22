@@ -10,12 +10,10 @@ public class PlayerInteract : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] private InventorySO _inventoryData;
     [SerializeField] private TextMeshProUGUI _onInteractedText;
-    [SerializeField] private KeyCode _keyInteract;
     
     private void Start() {
         _onInteractedText.text = string.Empty;
         _currentlyInteractedObjects = new();
-        _keyInteract = _keyInteract == KeyCode.None ? KeyCode.E : _keyInteract;
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -26,7 +24,7 @@ public class PlayerInteract : MonoBehaviour
         {
             _currentlyInteractedObjects.Enqueue(interactable);
             if (interactable is DialogueTrigger dt) { dt.SwitchVisualCue(true); }
-            _onInteractedText.text = $"Press {_keyInteract} to {interactable.InteractText}!";
+            _onInteractedText.text = $"Able to {interactable.InteractText}!";
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
@@ -40,7 +38,7 @@ public class PlayerInteract : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(_keyInteract) && _currentlyInteractedObjects.Count != 0)
+        if (InputManager.GetInstance().GetInteractPressed() && _currentlyInteractedObjects.Count != 0)
         {
             InteractAction();
         }
@@ -77,7 +75,7 @@ public class PlayerInteract : MonoBehaviour
         if (_currentlyInteractedObjects.Count != 0) 
         {
             var nextInQueue = _currentlyInteractedObjects.Peek();  
-            _onInteractedText.text = $"Press {_keyInteract} to {nextInQueue.InteractText}!"; 
+            _onInteractedText.text = $"Able to {nextInQueue.InteractText}!"; 
         } 
         else
         {

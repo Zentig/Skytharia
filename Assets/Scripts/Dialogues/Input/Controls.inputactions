@@ -11,7 +11,8 @@
                     "id": "b64f28e5-6f0c-4370-9f80-2a9a33c0fe95",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "move",
@@ -19,7 +20,8 @@
                     "id": "7ea5ec66-e7df-4d26-9425-2b7f30cc5d4b",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "interact",
@@ -27,7 +29,8 @@
                     "id": "ea3a0e61-c665-4f6d-8816-e9ded7c03c37",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "submit",
@@ -35,7 +38,8 @@
                     "id": "5bb69b73-57ad-4641-8a8a-d98e53ab29a6",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -163,7 +167,7 @@
                 {
                     "name": "",
                     "id": "5e7c69e4-cc4f-40b9-9448-0660917b54a9",
-                    "path": "<Keyboard>/i",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
