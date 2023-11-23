@@ -6,7 +6,7 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
-    List<AudioClip> AudioClips = new List<AudioClip>();
+    List<AudioClip> audioClips = new List<AudioClip>();
     public AudioSource AudioSource1, AudioSource2;
     public AudioClip CurrentSong, NextSong;
     [HideInInspector] public AudioSource currentAudioSource, oldAudioSource;
@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour
     {
         FindSongs("Assets/Sounds/Songs");
         currentAudioSource = AudioSource1;
-        CurrentSong = AudioClips[0];
+        CurrentSong = audioClips[0];
         
     }
 
@@ -32,9 +32,9 @@ public class SoundManager : MonoBehaviour
 
     private int GetCurrentSongIndex()
     {
-        for (int i = 0; i < AudioClips.Count; i++)
+        for (int i = 0; i < audioClips.Count; i++)
         {
-            if (currentAudioSource.clip == AudioClips[i])
+            if (currentAudioSource.clip == audioClips[i])
             {
                 return i;
             }
@@ -48,15 +48,15 @@ public class SoundManager : MonoBehaviour
         int currentIndex = GetCurrentSongIndex();
 
         // Check if the current index is the last one in the list
-        if (currentIndex == AudioClips.Count - 1)
+        if (currentIndex == audioClips.Count - 1)
         {
             // If it is, wrap around to the first song
-            NextSong = AudioClips[0];
+            NextSong = audioClips[0];
         }
         else
         {
             // Otherwise, just get the next song in the list
-            NextSong = AudioClips[currentIndex + 1];
+            NextSong = audioClips[currentIndex + 1];
         }
     }
 
@@ -83,7 +83,7 @@ public class SoundManager : MonoBehaviour
 
     void FindSongs(string folderPath)
     {
-        AudioClips.Clear();
+        audioClips.Clear();
 
         if (Directory.Exists(folderPath))
         {
@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
             foreach (string file in files)
             {
                 //loads each song from the path
-                AudioClips.Add((AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip)));
+                audioClips.Add((AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip)));
             }
         }
         else
@@ -138,14 +138,14 @@ public class SoundManager : MonoBehaviour
     //use these if you wanna change stuff externally
     public void AddSong(AudioClip song)
     {
-        AudioClips.Add(song);
+        audioClips.Add(song);
     }
     public void RemoveSong(AudioClip song)
     {
-        AudioClips.Remove(song);
+        audioClips.Remove(song);
     }
     public List<AudioClip> GetSongs()
     {
-        return AudioClips;
+        return audioClips;
     }
 }
