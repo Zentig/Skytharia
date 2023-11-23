@@ -6,24 +6,19 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
-    public List<AudioClip> audioClips = new List<AudioClip>();
-    public AudioSource audioSource1, audioSource2;
-    public AudioClip currentSong, nextSong;
+    List<AudioClip> AudioClips = new List<AudioClip>();
+    public AudioSource AudioSource1, AudioSource2;
+    public AudioClip CurrentSong, NextSong;
     [HideInInspector] public AudioSource currentAudioSource, oldAudioSource;
-    public float crossfadeTime;
+    [SerializeField] float crossfadeTime;
     bool isCrossfading;
 
 
     void Awake()
     {
         FindSongs("Assets/Sounds/Songs");
-        currentAudioSource = audioSource1;
-        currentSong = audioClips[0];
-        
-    }
-
-    void Start()
-    {
+        currentAudioSource = AudioSource1;
+        CurrentSong = AudioClips[0];
         
     }
 
@@ -37,9 +32,9 @@ public class SoundManager : MonoBehaviour
 
     private int GetCurrentSongIndex()
     {
-        for (int i = 0; i < audioClips.Count; i++)
+        for (int i = 0; i < AudioClips.Count; i++)
         {
-            if (currentAudioSource.clip == audioClips[i])
+            if (currentAudioSource.clip == AudioClips[i])
             {
                 return i;
             }
@@ -49,31 +44,31 @@ public class SoundManager : MonoBehaviour
 
     void GetNextSong()
     {
-        currentSong = currentAudioSource.clip;
+        CurrentSong = currentAudioSource.clip;
         int currentIndex = GetCurrentSongIndex();
 
         // Check if the current index is the last one in the list
-        if (currentIndex == audioClips.Count - 1)
+        if (currentIndex == AudioClips.Count - 1)
         {
             // If it is, wrap around to the first song
-            nextSong = audioClips[0];
+            NextSong = AudioClips[0];
         }
         else
         {
             // Otherwise, just get the next song in the list
-            nextSong = audioClips[currentIndex + 1];
+            NextSong = AudioClips[currentIndex + 1];
         }
     }
 
     void Swap()
     {
-        if (oldAudioSource == audioSource1)
+        if (oldAudioSource == AudioSource1)
         {
-            currentAudioSource = audioSource2;
+            currentAudioSource = AudioSource2;
         }
         else
         {
-            currentAudioSource = audioSource1;
+            currentAudioSource = AudioSource1;
         }
     }
 
@@ -88,7 +83,7 @@ public class SoundManager : MonoBehaviour
 
     void FindSongs(string folderPath)
     {
-        audioClips.Clear();
+        AudioClips.Clear();
 
         if (Directory.Exists(folderPath))
         {
@@ -97,7 +92,7 @@ public class SoundManager : MonoBehaviour
             foreach (string file in files)
             {
                 //loads each song from the path
-                audioClips.Add((AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip)));
+                AudioClips.Add((AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip)));
             }
         }
         else
@@ -115,7 +110,7 @@ public class SoundManager : MonoBehaviour
         // Swap and start fading in the next song
         oldAudioSource = currentAudioSource;
         Swap();
-        currentAudioSource.clip = nextSong;
+        currentAudioSource.clip = NextSong;
         currentAudioSource.Play();
         StartCoroutine(Fade(currentAudioSource, crossfadeTime, 1));
 
@@ -137,5 +132,20 @@ public class SoundManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+
+
+    //use these if you wanna change stuff externally
+    public void AddSong(AudioClip song)
+    {
+        AudioClips.Add(song);
+    }
+    public void RemoveSong(AudioClip song)
+    {
+        AudioClips.Remove(song);
+    }
+    public List<AudioClip> GetSongs()
+    {
+        return AudioClips;
     }
 }
