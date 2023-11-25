@@ -10,12 +10,10 @@ public class PlayerInteract : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] private InventorySO _inventoryData;
     [SerializeField] private TextMeshProUGUI _onInteractedText;
-    [SerializeField] private KeyCode _keyInteract;
     
     private void Start() {
         _onInteractedText.text = string.Empty;
         _currentlyInteractedObjects = new();
-        _keyInteract = _keyInteract == KeyCode.None ? _keyInteract : KeyCode.E;
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -25,32 +23,46 @@ public class PlayerInteract : MonoBehaviour
         if (!_currentlyInteractedObjects.Contains(interactable))
         {
             _currentlyInteractedObjects.Enqueue(interactable);
-            _onInteractedText.text = $"Press {_keyInteract} to {interactable.InteractText}!";
+            if (interactable is DialogueTrigger dt) { dt.SwitchVisualCue(true); }
+            _onInteractedText.text = $"Able to {interactable.InteractText}!";
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
     {
         var interactable = other.GetComponent<IInteractable>();       
-        if (interactable == null || !other.isActiveAndEnabled)
+        if (interactable == null || !other.isActiveAndEnabled || !_currentlyInteractedObjects.Contains(interactable))
             return;
         _currentlyInteractedObjects.Dequeue();
+        if (interactable is DialogueTrigger dt) { dt.SwitchVisualCue(false); }
         SetNextInteractText();       
     }
     void Update()
     {
-        if (Input.GetKeyDown(_keyInteract) && _currentlyInteractedObjects.Count != 0)
+        if (InputManager.GetInstance().GetInteractPressed() && _currentlyInteractedObjects.Count != 0)
         {
             InteractAction();
         }
     }
     private void InteractAction()
     {
-        var peekedObj = _currentlyInteractedObjects.Dequeue();
+        var peekedObj = _currentlyInteractedObjects.Peek();
         switch (peekedObj)
         {
             case Item item:   
                 _inventoryData.AddItem(item.InventoryItem, item.Quantity);
                 item.Interact();
+                _currentlyInteractedObjects.Dequeue();
+                break;
+            case NPCTalking npc:
+                npc.Interact();
+                if (!npc.CanContinueDialogue) 
+                { 
+                    _currentlyInteractedObjects.Dequeue();   
+                }
+                break;
+            case DialogueTrigger dialogueTrigger:
+                dialogueTrigger.Interact();
+                _currentlyInteractedObjects.Dequeue();
                 break;
             default:
                 Debug.LogError("IInteractable doesn't equal to any type of IInteractable's heirs");
@@ -63,7 +75,7 @@ public class PlayerInteract : MonoBehaviour
         if (_currentlyInteractedObjects.Count != 0) 
         {
             var nextInQueue = _currentlyInteractedObjects.Peek();  
-            _onInteractedText.text = $"Press E to {nextInQueue.InteractText}!"; 
+            _onInteractedText.text = $"Able to {nextInQueue.InteractText}!"; 
         } 
         else
         {
